@@ -1,0 +1,55 @@
+##construir un  modelo bajo:
+#renta mensual de 500 usd
+#el num de unidades que se rentaran en cualquiera de los meses sigue una distribucion
+#uniforme con valores (30,40)
+#los costos de operacion son de aproximadamente 15000 usd sin embargo
+#en ocasiones puede variar (aumentar o disminuir ) hasta un 37% suponga distribucion normal
+
+
+##obtener un modelo para la toma de decisiones
+#justificar la comopra o evitarla a traves del analisis de simulacion
+#estimar la utilidad esperada para el primer año
+#obtenga la probabilidad de tener ingresos de al menos $2500 usd en el primer año
+#si la distribucion de las unidades en renta sigue una distribucion triangular
+#¿cual sera su decision final?
+#obtenga el lapson en meses en el que obtendrá la inversion inicial si el precio del 
+#inmueble es 620,000 usd
+#justifique sus respuestas con al menos 2000 simulaciones
+
+ren<-500
+round((unidren<-runif(min = 30,max = 40,2000)),0)
+hist(unidren)
+(media<-mean(unidren))
+(var<-var(unidren))
+(des_est<-sqrt(var))
+### dit normal
+b<-15000*.37+15000
+(a<-15000*-.37+15000)
+nor<-sample(a:b,2000,replace = T)
+(distrnormal<-rnorm(nor,mean=(15000),sd=37))
+hist(distrnormal)
+(med_nor<-mean(distrnormal))
+(var_nor<-var(distrnormal))
+(des_est_norm<-sqrt(var_nor))
+
+#a
+install.packages("nortest")
+require(nortest)
+ad.test(distrnormal)
+ks.test(distrnormal,unidren)
+
+#b)
+(ganancias<-unidren*500-distrnormal)
+med_ganan<-mean(ganancias)*12
+
+hist(ganancias)
+max(ganancias)
+min(ganancias)
+
+solve(med_ganan,620000)
+
+
+
+sample.int(,2000,replace=T)
+max(x)
+min(x)
